@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>American Paints Ghana</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+.card{border:1px solid #e5e7eb; border-radius:12px; padding:16px; background:white; text-align:center; transition:0.2s; position:relative}
+.card:hover{box-shadow:0 8px 20px rgba(0,0,0,0.1); transform:translateY(-2px)}
+.img{height:180px; background:white; display:flex; align-items:center; justify-content:center; border-radius:8px}
+.img img{width:100%; height:100%; object-fit:contain}
+.cart{transform:translateX(100%); transition:0.35s cubic-bezier(.16,1,.3,1)}
+.cart.open{transform:translateX(0)}
+</style>
+</head>
+<body class="bg-gray-100">
+
+<header class="bg-[#111] text-white sticky top-0 z-50 px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center font-black">A</div>
+<div><p class="font-black tracking-tight leading-none">AMERICAN PAINTS GHANA</p><p class="text-[10px] opacity-60">024 123 4567 • americanpaints.gh@gmail.com</p></div>
+</div>
+<button onclick="toggleCart()" class="bg-white text-black px-5 py-2 rounded-full font-bold text-sm">CART (<span id="count">0</span>)</button>
+</header>
+
+<div class="p-4">
+<h1 class="text-center font-black text-[#002A5C] mb-1">🇺🇸 AMERICAN PAINTS GHANA - REAL CANS</h1>
+<p class="text-center text-xs opacity-60 mb-4">024 123 4567 • americanpaints.gh@gmail.com • Pickup & Door Delivery</p>
+
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4">
+
+<div class="card"><div class="img"><img src="./images/valspar-paint.jpeg" alt="Valspar"></div><p class="font-bold">Valspar Paint</p><p class="text-[11px] opacity-60">4L • Satin</p><p class="font-black">GH₵ 450</p><button onclick="add('Valspar Paint',450,'./images/valspar-paint.jpeg')" class="mt-2 w-full bg-[#111] text-white py-2 rounded-full text-sm font-bold">Add +</button></div>
+
+<div class="card" style="border:2px solid #facc15"><div class="img"><img src="./images/duron-paint.png" alt="Duron"></div><p class="font-bold">Duron Paint</p><p class="text-[11px] opacity-60">4L • Yellow</p><p class="font-black">GH₵ 520</p><button onclick="add('Duron Paint',520,'./images/duron-paint.png')" class="mt-2 w-full bg-[#111] text-white py-2 rounded-full text-sm font-bold">Add +</button></div>
+
+<div class="card" style="border:2px solid #78350f"><div class="img"><img src="./images/minwax-paint.png" alt="Minwax"></div><p class="font-bold">Minwax Paint</p><p class="text-[11px] opacity-60">1L • Brown</p><p class="font-black">GH₵ 380</p><button onclick="add('Minwax Paint',380,'./images/minwax-paint.png')" class="mt-2 w-full bg-[#111] text-white py-2 rounded-full text-sm font-bold">Add +</button></div>
+
+<div class="card"><div class="img"><img src="./images/sherwin-paint.png" alt="Sherwin"></div><p class="font-bold">Sherwin-Williams</p><p class="text-[11px] opacity-60">5L • Matt</p><p class="font-black">GH₵ 480</p><button onclick="add('Sherwin-Williams',480,'./images/sherwin-paint.png')" class="mt-2 w-full bg-[#111] text-white py-2 rounded-full text-sm font-bold">Add +</button></div>
+
+<div class="card"><div class="img"><img src="./images/primer-paint.png" alt="Primer"></div><p class="font-bold">Primer Paint</p><p class="text-[11px] opacity-60">4L • Quick Dry</p><p class="font-black">GH₵ 350</p><button onclick="add('Primer Paint',350,'./images/primer-paint.png')" class="mt-2 w-full bg-[#111] text-white py-2 rounded-full text-sm font-bold">Add +</button></div>
+
+<div class="card"><div class="img"><img src="./images/acrylic-paint.png" alt="Acrylic"></div><p class="font-bold">Acrylic Paint</p><p class="text-[11px] opacity-60">1L • Water-Based</p><p class="font-black">GH₵ 290</p><button onclick="add('Acrylic Paint',290,'./images/acrylic-paint.png')" class="mt-2 w-full bg-[#111] text-white py-2 rounded-full text-sm font-bold">Add +</button></div>
+
+<div class="card" style="border:2px solid blue"><div class="img"><img src="./images/american-pro-paint.png" alt="American Pro"></div><p class="font-bold text-blue-800">American Paints Pro Exterior</p><p class="text-[11px] opacity-60">4L • Premium</p><p class="font-black">GH₵ 650</p><button onclick="add('American Paints Pro Exterior',650,'./images/american-pro-paint.png')" class="mt-2 w-full bg-[#002A5C] text-white py-2 rounded-full text-sm font-bold">Add +</button></div>
+
+</div>
+</div>
+
+<!-- CART WITH DELIVERY -->
+<div id="cart" class="cart fixed top-0 right-0 w-[94%] md:w-[440px] h-full bg-white z-[100] shadow-2xl flex flex-col">
+<div class="p-5 border-b flex justify-between items-center"><h2 class="font-black">YOUR ORDER</h2><button onclick="toggleCart()" class="w-8 h-8 bg-black text-white rounded-full">×</button></div>
+
+<div class="flex-1 overflow-auto p-4 space-y-4">
+<div id="items" class="space-y-3"><p class="text-sm opacity-50">Cart empty</p></div>
+
+<div class="bg-gray-50 p-3 rounded-xl text-xs">
+<p class="font-bold mb-1">📞 Contact Us</p>
+<p>Phone / WhatsApp: 024 123 4567</p>
+<p>Email: americanpaints.gh@gmail.com</p>
+</div>
+
+<div class="border rounded-xl p-3">
+<p class="font-bold text-sm mb-2">Delivery Option</p>
+<label class="flex items-center gap-2 p-2 border rounded-lg mb-2 cursor-pointer"><input type="radio" name="delivery" value="pickup" checked onchange="updateTotal()"><span class="text-sm"><b>Pickup Station</b> - FREE<br><span class="text-xs opacity-60">Circle, Tema, Madina, Kasoa, Weija</span></span></label>
+<label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer"><input type="radio" name="delivery" value="door" onchange="updateTotal()"><span class="text-sm"><b>Door Delivery</b> - GH₵ 30 Accra / GH₵ 60 Outside</span></label>
+<select id="station" class="w-full mt-3 border rounded-lg p-2 text-sm">
+<option>Circle - Odawna Station</option>
+<option>Tema Station</option>
+<option>Madina Market</option>
+<option>Kasoa - Obom Road</option>
+<option>Weija - SCC</option>
+<option>Spintex Road</option>
+<option>Kumasi - Kejetia ( + GH₵ 20)</option>
+<option>Takoradi - Market Circle ( + GH₵ 30)</option>
+</select>
+<input id="custPhone" placeholder="Your phone number" class="w-full mt-3 border rounded-lg p-2 text-sm">
+<input id="custLocation" placeholder="Your area / GPS (for door delivery)" class="w-full mt-2 border rounded-lg p-2 text-sm">
+</div>
+</div>
+
+<div class="p-4 border-t bg-white">
+<div class="space-y-1 text-sm mb-3">
+<div class="flex justify-between"><span>Products</span><span id="subTotal">GH₵ 0</span></div>
+<div class="flex justify-between"><span>Delivery</span><span id="delFee">GH₵ 0</span></div>
+<div class="flex justify-between font-black text-lg border-t pt-2"><span>TOTAL</span><span id="total">GH₵ 0</span></div>
+</div>
+<a id="wa" href="#" target="_blank" class="block bg-black text-white text-center py-3 rounded-full font-bold">Checkout on WhatsApp - 024 123 4567</a>
+<a id="mail" href="#" class="block mt-2 border text-center py-2 rounded-full text-sm font-bold">Send via Email - americanpaints.gh@gmail.com</a>
+</div>
+</div>
+
+<div id="overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/30 hidden z-[90]"></div>
+
+<footer class="bg-[#111] text-white p-6 text-center text-xs mt-8">
+<p class="font-bold">AMERICAN PAINTS GHANA</p>
+<p class="opacity-60 mt-1">024 123 4567 • americanpaints.gh@gmail.com</p>
+<p class="opacity-40 mt-2">Pickup: Circle, Tema, Madina, Kasoa, Weija, Spintex • Door Delivery Nationwide</p>
+</footer>
+
+<script>
+let cart=[],sub=0;
+function add(name,price,img){let f=cart.find(i=>i.name===name);if(f){f.qty++;}else{cart.push({name,price,img,qty:1});}updateTotal();document.getElementById('cart').classList.add('open');document.getElementById('overlay').classList.remove('hidden');}
+function updateTotal(){
+sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+let type=document.querySelector('input[name="delivery"]:checked').value;
+let fee=0;
+if(type==='door'){let area=document.getElementById('station').value; if(area.includes('Kumasi')) fee=50; else if(area.includes('Takoradi')) fee=60; else fee=30;}
+if(type==='door' && (document.getElementById('custLocation').value.toLowerCase().includes('kumasi') || document.getElementById('custLocation').value.toLowerCase().includes('takoradi'))) fee=60;
+document.getElementById('subTotal').innerText='GH₵ '+sub;
+document.getElementById('delFee').innerText='GH₵ '+fee;
+document.getElementById('total').innerText='GH₵ '+(sub+fee);
+document.getElementById('count').innerText=cart.reduce((s,i)=>s+i.qty,0);
+let html='';cart.forEach(i=>{html+=`<div class="flex gap-2 bg-gray-100 p-2 rounded-xl"><img src="${i.img}" class="w-10 h-10 object-contain bg-white rounded"><div class="flex-1"><p class="font-bold text-xs">${i.name}</p><p class="text-[11px]">Qty ${i.qty} • GH₵ ${i.price*i.qty}</p></div><button onclick="remove('${i.name}')" class="text-red-500 text-xs">X</button></div>`});
+document.getElementById('items').innerHTML=html||'<p class="text-sm opacity-50">Cart empty</p>';
+let delText=type==='pickup'?'PICKUP: '+document.getElementById('station').value:'DOOR DELIVERY: '+(document.getElementById('custLocation').value||document.getElementById('station').value);
+let cust=`Customer Phone: ${document.getElementById('custPhone').value}`;
+let msg=cart.map(c=>`${c.name} x${c.qty} - GH₵ ${c.price*c.qty}`).join('%0A')+`%0A%0A${delText}%0A${cust}%0A%0ASub: GH₵ ${sub}%0ADelivery: GH₵ ${fee}%0ATOTAL: GH₵ ${sub+fee}`;
+document.getElementById('wa').href=`https://wa.me/233241234567?text=Hello American Paints Ghana! I want to order:%0A${msg}`;
+document.getElementById('mail').href=`mailto:americanpaints.gh@gmail.com?subject=New Order - American Paints Ghana&body=${msg.replaceAll('%0A','%0D%0A')}`;
+}
+function remove(name){cart=cart.filter(i=>i.name!==name);updateTotal();}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');document.getElementById('overlay').classList.toggle('hidden');}
+document.getElementById('station').addEventListener('change',updateTotal);
+document.getElementById('custLocation').addEventListener('input',updateTotal);
+document.getElementById('custPhone').addEventListener('input',updateTotal);
+</script>
+
+</body>
+</html>
